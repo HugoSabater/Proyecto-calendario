@@ -1,9 +1,17 @@
-
-import { Event, Activity, User, ChatMessage } from './types.ts';
+import { Event, Activity, User, ChatMessage, UserProfile } from './types';
 
 export const currentUser: User = {
     name: 'María Tomillos García',
     avatarUrl: 'https://picsum.photos/seed/maria/40/40',
+};
+
+export const DEFAULT_USER_PROFILE: UserProfile = {
+    name: 'Usuario',
+    gender: 'other',
+    age: 25,
+    weight: 70,
+    height: 170,
+    imageUrl: '/assets/character.svg',
 };
 
 export const users: { [key: string]: User } = {
