@@ -1,0 +1,38 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(0, 10)">
+        <!-- Headband -->
+        <path d="M 65,52
+                 A 40,40 0 0 1 135,52
+                 L 135,62
+                 A 40,40 0 0 0 65,62 Z" fill="#03A9F4"/>
+
+        <!-- Head -->
+        <circle cx="100" cy="70" r="40" fill="#FFCC80"/>
+
+        <!-- Hair -->
+        <path d="M 65,70
+                 A 40,40 0 0 1 100,30
+                 A 40,40 0 0 1 135,70" fill="#37474F"/>
+        
+        <!-- Eyes -->
+        <circle cx="85" cy="70" r="5" fill="white"/>
+        <circle cx="115" cy="70" r="5" fill="white"/>
+        <circle cx="86" cy="71" r="2.5" fill="#212121"/>
+        <circle cx="116" cy="71" r="2.5" fill="#212121"/>
+        
+        <!-- Smile -->
+        <path d="M 90,85
+                 A 15,15 0 0 0 110,85" stroke="white" stroke-width="3" fill="none"/>
+
+        <!-- Body -->
+        <rect x="80" y="110" width="40" height="60" rx="10" fill="#03A9F4"/>
+
+        <!-- Arms -->
+        <rect x="50" y="110" width="20" height="40" rx="10" fill="#FFCC80"/>
+        <rect x="130" y="110" width="20" height="40" rx="10" fill="#FFCC80"/>
+
+        <!-- Legs -->
+        <rect x="80" y="170" width="15" height="30" rx="5" fill="#37474F"/>
+        <rect x="105" y="170" width="15" height="30" rx="5" fill="#37474F"/>
+    </g>
+</svg>
