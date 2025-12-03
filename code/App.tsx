@@ -1,24 +1,24 @@
+
 import React, { useState } from 'react';
-import { View, Event, Activity, UserProfile } from './types';
+import { View, Event, Activity } from './types';
 import Sidebar from './components/Sidebar';
 import CalendarView from './components/CalendarView';
 import ActivitiesView from './components/ActivitiesView';
 import ProfileView from './components/ProfileView';
-import HomeView from './HomeView'; // Adjusted to match your current file structure
-import { MOCK_EVENTS, MOCK_ACTIVITIES, DEFAULT_USER_PROFILE } from './constants';
+import { MOCK_EVENTS, MOCK_ACTIVITIES } from './constants';
 import AddEventModal from './components/AddEventModal';
 import DeleteConfirmationModal from './components/DeleteConfirmationModal';
 import EditEventModal from './components/EditEventModal';
+import SettingsView from './components/SettingsView';
 
 const App: React.FC = () => {
     const [currentView, setCurrentView] = useState<View>('calendar');
     const [events, setEvents] = useState<Event[]>(MOCK_EVENTS);
     const [activities, setActivities] = useState<Activity[]>(MOCK_ACTIVITIES);
-    const [userProfile, setUserProfile] = useState<UserProfile>(DEFAULT_USER_PROFILE);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingEvent, setEditingEvent] = useState<Event | null>(null);
     const [isSidebarEditMode, setIsSidebarEditMode] = useState(false);
-
+    
     const [deleteModalState, setDeleteModalState] = useState<{isOpen: boolean; eventId: number | null}>({isOpen: false, eventId: null});
     const [dontAskAgain, setDontAskAgain] = useState(false);
 
@@ -65,7 +65,7 @@ const App: React.FC = () => {
     };
 
     const handleDeleteRequest = (id: number) => {
-        if (editingEvent) setEditingEvent(null);
+        if (editingEvent) setEditingEvent(null); 
         if (dontAskAgain) {
             handleDeleteConfirm(id);
         } else {
@@ -86,42 +86,40 @@ const App: React.FC = () => {
     };
 
     const handleToggleEvent = (id: number) => {
-        setEvents(events.map(event =>
+        setEvents(events.map(event => 
             event.id === id ? { ...event, checked: !event.checked } : event
         ));
     };
 
-    const handleUpdateProfile = (updatedProfile: UserProfile) => {
-        setUserProfile(updatedProfile);
-        // Aquí podrías guardar en base de datos
-    };
 
     const renderView = () => {
         switch (currentView) {
             case 'home':
-                return <HomeView profile={userProfile} onSave={handleUpdateProfile} />;
+                return <div className="p-8"><h1 className="text-3xl font-bold">Página de Inicio</h1></div>;
             case 'activities':
-                return <ActivitiesView
-                    activities={activities}
+                return <ActivitiesView 
+                    activities={activities} 
                     onAddActivity={handleAddActivity}
                     onDeleteActivity={handleDeleteActivity}
                     onToggleActivity={handleToggleActivity}
                     onUpdateActivity={handleUpdateActivity}
                 />;
             case 'calendar':
-                return <CalendarView
-                    events={events}
-                    onAddEventClick={() => setIsAddModalOpen(true)}
+                return <CalendarView 
+                    events={events} 
+                    onAddEventClick={() => setIsAddModalOpen(true)} 
                     onToggleEvent={handleToggleEvent}
                     onEditEventClick={setEditingEvent}
                 />;
             case 'profile':
-                return <ProfileView />;
+                 return <ProfileView />;
+            case 'settings':
+                 return <SettingsView />;
             default:
-                return <CalendarView
-                    events={events}
-                    onAddEventClick={() => setIsAddModalOpen(true)}
-                    onToggleEvent={handleToggleEvent}
+                return <CalendarView 
+                    events={events} 
+                    onAddEventClick={() => setIsAddModalOpen(true)} 
+                    onToggleEvent={handleToggleEvent} 
                     onEditEventClick={setEditingEvent}
                 />;
         }
@@ -129,8 +127,8 @@ const App: React.FC = () => {
 
     return (
         <div className="flex h-screen bg-gray-100 font-sans">
-            <Sidebar
-                currentView={currentView}
+            <Sidebar 
+                currentView={currentView} 
                 setCurrentView={setCurrentView}
                 events={events}
                 onDeleteRequest={handleDeleteRequest}
@@ -143,7 +141,7 @@ const App: React.FC = () => {
             </main>
             {isAddModalOpen && <AddEventModal onSave={handleAddEvent} onClose={() => setIsAddModalOpen(false)} />}
             {editingEvent && (
-                <EditEventModal
+                <EditEventModal 
                     event={editingEvent}
                     onSave={handleUpdateEvent}
                     onClose={() => setEditingEvent(null)}
