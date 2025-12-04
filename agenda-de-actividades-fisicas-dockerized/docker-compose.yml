@@ -1,10 +1,62 @@
-version: '3.8'
+
 services:
-  web:
+  frontend:
     build: .
-    image: coagenda:latest
+    container_name: frontend_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - appnet
+
+  backend:
+    build: ./backend
+    container_name: backend_app
+    ports:
+      - "4000:4000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=example
+      - DB_NAME=agenda
+    depends_on:
+      - db
+    networks:
+      - appnet
+
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: agenda
+    ports:
+      - "3307:3307"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - appnet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
     ports:
       - "8080:80"
-    restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      PMA_HOST: db
+      PMA_USER: agenda
+      PMA_PASSWORD: example
+    depends_on:
+      - db
+    networks:
+      - appnet
+
+networks:
+  appnet:
+
+volumes:
+  mysql_data:
+

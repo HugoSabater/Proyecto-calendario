@@ -15,13 +15,13 @@ interface CalendarViewProps {
 const MAX_EVENTS_VISIBLE = 2;
 
 const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, onToggleEvent, onEditEventClick }) => {
-    const [currentDate, setCurrentDate] = useState(new Date());
+    const [currentDate] = useState(new Date());
     const [dayModalState, setDayModalState] = useState<{ isOpen: boolean; events: Event[]; date: Date | null }>({ isOpen: false, events: [], date: null });
 
     const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-    
+
     const getDaysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate();
-    
+
     const handleOpenDayModal = (events: Event[], date: Date) => {
         setDayModalState({ isOpen: true, events, date });
     };
@@ -29,10 +29,10 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, on
     const handleCloseDayModal = () => {
         setDayModalState({ isOpen: false, events: [], date: null });
     };
-    
+
     const renderHeader = () => {
         return (
-             <div className="flex justify-between items-center p-6 bg-white">
+            <div className="flex justify-between items-center p-6 bg-white">
                 <div className="relative w-1/3">
                     <input type="text" placeholder="Buscar" className="w-full pl-10 pr-4 py-3 border-2 border-cyan-400 rounded-full focus:outline-none focus:border-cyan-600" />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -40,7 +40,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, on
                     </div>
                 </div>
                 <div>
-                     <button 
+                    <button
                         onClick={onAddEventClick}
                         className="bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-colors">
                         AÑADIR EVENTO
@@ -66,7 +66,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, on
         const firstDayOfMonth = (new Date(year, month, 1).getDay() + 6) % 7; // 0=Lunes
         const daysInMonth = getDaysInMonth(year, month);
         const prevMonthDays = getDaysInMonth(year, month - 1);
-        
+
         const cells = [];
         const today = new Date();
         const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
@@ -82,7 +82,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, on
         for (let day = 1; day <= daysInMonth; day++) {
             const isToday = isCurrentMonth && day === today.getDate();
             const dayDate = new Date(year, month, day);
-            const eventsForDay = events.filter(e => 
+            const eventsForDay = events.filter(e =>
                 e.date.getFullYear() === year && e.date.getMonth() === month && e.date.getDate() === day
             );
 
@@ -91,31 +91,31 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, on
                     <div className={`font-semibold ${isToday ? 'text-cyan-600' : 'text-gray-700'}`}>{day}</div>
                     <div className="mt-1 space-y-1">
                         {eventsForDay.slice(0, MAX_EVENTS_VISIBLE).map(event => (
-                           <div key={event.id} className="group relative text-xs text-white bg-cyan-500 p-1 rounded flex items-center truncate">
-                             <input
-                                type="checkbox"
-                                checked={event.checked}
-                                onChange={() => onToggleEvent(event.id)}
-                                className="h-3 w-3 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 mr-2 shrink-0"
-                             />
-                             <span className={`flex-1 ${event.checked ? 'line-through' : ''}`}>{event.title}</span>
-                              <button
-                                onClick={() => onEditEventClick(event)}
-                                className="absolute right-1 top-1/2 -translate-y-1/2 p-0.5 rounded-full bg-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity"
-                                aria-label={`Editar evento ${event.title}`}
-                             >
-                                <EditIcon />
-                             </button>
-                           </div>
-                         ))}
-                         {eventsForDay.length > MAX_EVENTS_VISIBLE && (
-                            <button 
+                            <div key={event.id} className="group relative text-xs text-white bg-cyan-500 p-1 rounded flex items-center truncate">
+                                <input
+                                    type="checkbox"
+                                    checked={event.checked}
+                                    onChange={() => onToggleEvent(event.id)}
+                                    className="h-3 w-3 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 mr-2 shrink-0"
+                                />
+                                <span className={`flex-1 ${event.checked ? 'line-through' : ''}`}>{event.title}</span>
+                                <button
+                                    onClick={() => onEditEventClick(event)}
+                                    className="absolute right-1 top-1/2 -translate-y-1/2 p-0.5 rounded-full bg-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    aria-label={`Editar evento ${event.title}`}
+                                >
+                                    <EditIcon />
+                                </button>
+                            </div>
+                        ))}
+                        {eventsForDay.length > MAX_EVENTS_VISIBLE && (
+                            <button
                                 onClick={() => handleOpenDayModal(eventsForDay, dayDate)}
                                 className="text-xs text-blue-600 hover:underline font-semibold p-1 rounded w-full text-left"
                             >
                                 +{eventsForDay.length - MAX_EVENTS_VISIBLE} más
                             </button>
-                         )}
+                        )}
                     </div>
                 </div>
             );
@@ -148,7 +148,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events, onAddEventClick, on
                 </div>
             </div>
             {dayModalState.isOpen && (
-                <DayEventsModal 
+                <DayEventsModal
                     events={dayModalState.events}
                     date={dayModalState.date}
                     onClose={handleCloseDayModal}
