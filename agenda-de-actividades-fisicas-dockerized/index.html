@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-g">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoAgeenda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+/* Custom styles for range input */
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Webkit thumb */
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: #cbd5e1; /* slate-300 */
+  border-radius: 4px;
+  cursor: grab;
+  margin-top: -4px; /* Center 16px thumb on 8px track */
+}
+
+.custom-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
+
+/* Mozilla thumb */
+.custom-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #cbd5e1; /* slate-300 */
+  border-radius: 4px;
+  border: none;
+  cursor: grab;
+}
+
+.custom-slider::-moz-range-thumb:active {
+  cursor: grabbing;
+}
+
+/* Webkit track */
+.custom-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, var(--track-color) var(--progress-percent), #e5e7eb var(--progress-percent));
+}
+
+/* Mozilla track */
+.custom-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 4px;
+  background: #e5e7eb;
+}
+
+/* Mozilla progress */
+.custom-slider::-moz-range-progress {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--track-color);
+}
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "vite": "https://aistudiocdn.com/vite@^7.2.6",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
