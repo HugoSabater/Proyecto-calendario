@@ -1,0 +1,5 @@
+{
+  "name": "Agenda de Actividades Físicas",
+  "description": "Una aplicación web de agenda enfocada en actividades físicas que permite crear y seguir actividades, verlas en un calendario y chatear con compañeros.",
+  "requestFramePermissions": []
+}
